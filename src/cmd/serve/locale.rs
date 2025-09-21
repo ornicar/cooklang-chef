@@ -14,7 +14,7 @@ pub struct LocaleStore {
 }
 
 impl LocaleStore {
-    const DEFAULT_LOCALE: &'static str = "en";
+    const DEFAULT_LOCALE: &'static str = "fr";
 
     pub fn get(&self, code: &str) -> Option<Arc<Locale>> {
         self.locales
