@@ -9,6 +9,7 @@ cargo watch -w ui/templates -w src -w ui/assets -- cargo run -- serve
 
 # custom:
 cargo watch -w ui/templates -w src -w ui/assets -- cargo run -- serve --port 9081 --host --path ~/recipes --disable-open-editor 
+cargo build --release
 
 # Production build
 tailwindcss -i input.css -o assets/styles.css --minify
