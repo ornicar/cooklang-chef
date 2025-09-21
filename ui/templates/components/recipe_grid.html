@@ -72,13 +72,14 @@
     </div>
   {% endfor %}
 </div>
-{% if is_htmx_search and recipes|length == 0 %}
-  <div class="mx-auto">
+<div class="mx-auto">
+  {% if is_htmx_search and recipes|length == 0 %}
     <div class="text-center text-xl">{{ t('index.noRecipes') }}</div>
-    <img
-      src="/undraw_empty_cart.svg"
-      aria-hidden="true"
-      class="mx-auto p-8 md:max-w-[50%]"
-    />
-  </div>
-{% endif %}
+  {% else %}
+    <!-- <img -->
+    <!--   src="/kitchen.png" -->
+    <!--   aria-hidden="true" -->
+    <!--   class="mx-auto p-8 md:max-w-[50%]" -->
+    <!-- /> -->
+  {% endif %}
+</div>
