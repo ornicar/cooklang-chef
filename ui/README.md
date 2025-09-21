@@ -7,6 +7,9 @@ To build the styles you need the [`tailwindcss` CLI](https://tailwindcss.com/blo
 tailwindcss -i input.css -o assets/styles.css --watch
 cargo watch -w ui/templates -w src -w ui/assets -- cargo run -- serve
 
+# custom:
+cargo watch -w ui/templates -w src -w ui/assets -- cargo run -- serve --port 9081 --host --path ~/recipes --disable-open-editor 
+
 # Production build
 tailwindcss -i input.css -o assets/styles.css --minify
 ```
