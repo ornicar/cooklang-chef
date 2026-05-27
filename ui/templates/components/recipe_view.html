@@ -74,48 +74,24 @@
 {% endmacro %}
 
 {% set entries %}
-  {% call meta_entry(t("r.meta.servings")) %}
-    <form
-      class="px-2"
-      method="get"
-      action="{{ href }}"
-      hx-trigger="input[target.value.length>0] changed delay:500ms from:#custom-scale, submit"
-      hx-swap="show:none"
-    >
-      {% if query.units %}
-        <input type="hidden" name="units" value="{{ query.units }}" />
-      {% endif %}
-      <input
-        id="custom-scale"
-        name="scale"
-        value="{{ query.scale|or_else(r.meta.servings|or_else([])|first) }}"
-        class="-my-0.5 h-7 w-14 rounded border border-base-2 p-1 tabular-nums"
-        type="number"
-        min="1"
-        max="99"
-        inputmode="numeric"
-        pattern="[0-9]*"
-      />
-    </form>
-    {% if r.meta.servings and r.meta.servings is not empty %}
-      <div class="flex divide-x-2 divide-base-7">
-        {% for serving in r.meta.servings %}
-          {% set is_selected = (query.scale is none and loop.first) or (query.scale == serving) %}
-          {% set query_str = "?" ~ {'scale': serving, 'units': query.units}|select_value|urlencode if not loop.first else '' %}
-          <div class="px-2">
-            <a
-              href="/r/{{ src_path|replace('.cook', '') }}{{ query_str }}"
-              class="{{ 'border-primary-7' if is_selected else 'border-transparent' }}
-                    h-fit rounded border-2 px-1.5 decoration-2"
-              hx-swap="show:none"
-            >
-              {{ serving }}
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endcall %}
+  {% if r.meta.servings and r.meta.servings is not empty %}
+    <div class="flex divide-x-2 divide-base-7">
+      {% for serving in r.meta.servings %}
+        {% set is_selected = (query.scale is none and loop.first) or (query.scale == serving) %}
+        {% set query_str = "?" ~ {'scale': serving, 'units': query.units}|select_value|urlencode if not loop.first else '' %}
+        <div class="px-2">
+          <a
+            href="/r/{{ src_path|replace('.cook', '') }}{{ query_str }}"
+            class="{{ 'border-primary-7' if is_selected else 'border-transparent' }}
+                  h-fit rounded border-2 px-1.5 decoration-2"
+            hx-swap="show:none"
+          >
+            {{ serving }}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endset %}
 
 {{ meta_group("i-lucide-utensils", entries) }}
