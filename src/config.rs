@@ -264,9 +264,7 @@ pub fn global_load<T: DeserializeOwned + Serialize + Default>(name: &str) -> Res
             toml::from_str(&content).context("Bad TOML data")
         }
         Err(e) if e.kind() == io::ErrorKind::NotFound => {
-            let val = T::default();
-            store_at_path(path, &val)?;
-            Ok(val)
+            Ok(T::default())
         }
         Err(e) => Err(e).context("Failed to load config file"),
     }
@@ -351,7 +349,9 @@ mod extensions_serde {
                 // https://github.com/serde-rs/serde/issues/2467
                 while let Some((name, enabled)) = map.next_entry::<String, bool>()? {
                     let e = Extensions::from_name(&name.replace(' ', "_").to_uppercase())
-                        .ok_or_else(|| A::Error::custom(format!("Unknown extension name: {}", name)))?;
+                        .ok_or_else(|| {
+                            A::Error::custom(format!("Unknown extension name: {}", name))
+                        })?;
                     if enabled {
                         extensions |= e;
                     }

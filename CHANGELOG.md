@@ -2,6 +2,12 @@
 
 ## Unreleased - ReleaseDate
 
+## 0.10.3 - 2025/11/30
+
+- Follow symbolic links when scanning recipes directory ( #59 )
+- Added `Dockerfile` and `docker-compose.yml` to the repository ( @amcfague #58
+  @zero-ninetynine #62 )
+
 ## 0.10.2 - 2025/10/14
 
 - Fix HTML render fail when only prep time was given without cook time or vice
